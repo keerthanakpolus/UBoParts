@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "transactions",
+  "info": {
+    "singularName": "transaction",
+    "pluralName": "transactions",
+    "displayName": "transaction"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "tid": {
+      "type": "string"
+    },
+    "sid": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    },
+    "customer_id": {
+      "type": "integer"
+    },
+    "shipping_cost": {
+      "type": "integer"
+    }
+  }
+}

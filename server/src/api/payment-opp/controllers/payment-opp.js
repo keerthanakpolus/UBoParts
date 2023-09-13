@@ -1,6 +1,6 @@
 "use strict";
 const axios = require("axios");
-
+const { DateTime } = require('luxon');  
 /**
  * A set of functions called "actions" for `payment-opp`
  */
@@ -32,11 +32,13 @@ module.exports = {
 
       //insert status into transaction table based on the responce
 
-      console.log(response.data);
+      const currentdate = DateTime.utc().toFormat("yyyy-MM-dd HH:mm:ss");
+      console.log("data");
+      console.log(response.data.uid);
       const entries = await strapi.db.connection.raw(
-        `INSERT INTO public.transaction(
-            id, tid, sid, status, created_at, updated_at, customer_id)
-            VALUES (DEFAULT, '${response.data.uid}', '${response.data.statuses[0].uid}', '${response.data.status}', DEFAULT, DEFAULT, ${ctx.request.body.customerid});`
+        `INSERT INTO public.transactions(
+            id, tid, sid, status, customer_id, shipping_cost, created_at, updated_at, published_at )
+            VALUES (DEFAULT, '${response.data.uid}', '${response.data.statuses[0].uid}', '${response.data.status}', ${ctx.request.body.customerid}, ${ctx.request.body.shipping_cost}, '${currentdate}', '${currentdate}', '${currentdate}');`
       );
       ctx.body = response.data;
 

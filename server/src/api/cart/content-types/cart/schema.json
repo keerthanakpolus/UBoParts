@@ -1,0 +1,28 @@
+{
+  "kind": "collectionType",
+  "collectionName": "carts",
+  "info": {
+    "singularName": "cart",
+    "pluralName": "carts",
+    "displayName": "cart",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "customer_id": {
+      "type": "integer"
+    },
+    "product_id": {
+      "type": "integer"
+    },
+    "quantity": {
+      "type": "integer"
+    },
+    "total_price": {
+      "type": "integer"
+    }
+  }
+}

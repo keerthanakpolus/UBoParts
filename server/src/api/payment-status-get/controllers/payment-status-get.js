@@ -11,7 +11,7 @@ module.exports = {
      try {
       const entries = await strapi.db.connection.raw(
         `SELECT status
-        FROM public.transaction WHERE tid='${ctx.request.body.transactionid}';`
+        FROM public.transactions WHERE tid='${ctx.request.body.transactionid}';`
        );
        ctx.body = entries;
     } catch (err) {
