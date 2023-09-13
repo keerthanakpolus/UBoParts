@@ -13,7 +13,7 @@ import { UserContext } from '../account_/UserContext';
 function Header_home(props: any) {
   
     const router = useRouter();
-    const {user, saveUser} = UserContext();
+    const {user, saveUser, cartCount, setCartCount} = UserContext();
     const [userToken, setUserToken] = useState<any>();
 
     useEffect(() => {
@@ -39,7 +39,6 @@ function Header_home(props: any) {
 
     const [isOpen, setIsOpen] = useState(false);
     const [isLoggedin, setIsLoggedin] = useState(true);
-    const [cartCount, setCartCount] = useState(0)
 
     useEffect(() => {
         if (user.id) {
@@ -89,14 +88,15 @@ function Header_home(props: any) {
                                     <button className="btn border-0 menu_font_size regularfont menu-color" onClick={() => setIsOpen(!isOpen)}>My Account</button>
                                     {isOpen && (
                                         <div className='position-absolute menu-dropdown account-dropdown'>
-                                            {user.user_type === 'seller' && <div className='dropdownitem'>
+                                            <div className='dropdownitem'>
                                                 <span className='menu_font_size regularfont pointer' 
                                                     onClick={() => {
-                                                        router.push('/seller/dashboard');
+                                                        let route = (user.isApproved === 'Active' && user.role.type === 'seller') ? '/seller/dashboard' : '/purchase-history';
+                                                        router.push(route);
                                                         setIsOpen(!isOpen);
                                                     }}
                                                 >Dashboard</span>
-                                            </div>}
+                                            </div>
                                             <div className='dropdownitem'>
                                                 <span className='menu_font_size regularfont pointer' 
                                                     onClick={() => {
@@ -111,12 +111,6 @@ function Header_home(props: any) {
                                                     onClick={logout}
                                                 >Logout</span>
                                             </div>
-                                            {user.user_type !== 'seller' && <div className='dropdownitem'>
-                                                <span className='menu_font_size regularfont pointer required-text' 
-                                                    style={{zIndex: 2, position: 'relative'}} 
-                                                    onClick={() => console.log('become a seller')}
-                                                >Start Selling</span>
-                                            </div>}
                                         </div>
                                     )}
                                 </div>
